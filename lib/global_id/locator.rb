@@ -14,6 +14,7 @@ class GlobalID
       #   modules match, +nil+ is returned.
       def locate(gid, options = {})
         if gid = GlobalID.parse(gid)
+          ActiveRecord::Base.connection.schema_search_path = 'app_coach,core'
           locator_for(gid).locate gid if find_allowed?(gid.model_class, options[:only])
         end
       end
